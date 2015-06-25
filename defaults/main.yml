@@ -3,3 +3,13 @@ drush_install_path: /usr/local/share/drush
 drush_path: /usr/local/bin/drush
 drush_version: master
 drush_keep_updated: no
+
+# typically override to remote_user / ansible
+drush_remote_user: 'root'
+
+# typically override to remote_user admin group
+drushuser_admin_group: 'root'
+
+drush_core_modules:
+ - registry_rebuild
+ - site_audit

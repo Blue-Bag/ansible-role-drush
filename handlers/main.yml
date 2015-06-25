@@ -1,0 +1,7 @@
+---
+- name: clear drush cache
+  command: "drush cc drush chdir=/home/{{ user }}/.drush"
+  register: drush_cc_result
+  failed_when: "drush_cc_result.rc != 0"
+  changed_when: false
+  tags: drush

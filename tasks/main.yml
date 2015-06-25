@@ -1,10 +1,24 @@
 ---
+
+# tasks file for drush
+
+- name: Create Drush folder in users home
+  file:
+    path: "/home/{{ user }}/.drush"
+    state: directory
+    owner: "{{ user }}"
+    mode: 0755
+    recurse: no
+  remote_user: {{ drush_remote_user }}
+
 - name: Clone Drush from GitHub.
-  git: >
-    repo=https://github.com/drush-ops/drush.git
-    dest={{ drush_install_path }}
-    version={{ drush_version }}
-    update={{ drush_keep_updated }}
+  git:
+    repo: https://github.com/drush-ops/drush.git
+    dest: "{{ drush_install_path }}"
+    version: "{{ drush_version }}"
+    update: "{{ drush_keep_updated }}"
+  sudo: true
+  tags: drush
 
 # See: https://github.com/geerlingguy/ansible-role-drush/issues/6
 - name: Ensure Drush can be installed on Debian Wheezy.
@@ -19,14 +33,55 @@
     {{ composer_path }} install --prefer-source --no-interaction
     chdir={{ drush_install_path }}
     creates={{ drush_install_path }}/vendor/autoload.php
+  sudo: true
+  tags: drush
+
 
 - name: Create drush symlink.
-  file: >
-    src={{ drush_install_path }}/drush
-    dest={{ drush_path }}
-    state=link
+  file:
+    src: "{{ drush_install_path }}/drush"
+    dest: "{{ drush_path }}"
+    state: link
+  sudo: true
+  tags: drush
 
 - name: Run drush to finish setting it up.
   command: "{{ drush_path }}"
   register: drush_result
   changed_when: "'Execute a drush command' not in drush_result.stdout"
+
+- name: Run drush to finish setting it up.
+  command: "{{ drush_path }}"
+  register: drush_result
+  changed_when: "'Execute a drush command' not in drush_result.stdout"
+  tags: drush
+
+- name: Download Drush Modules
+  command: >
+    drush dl {{ item }} --yes chdir=/home/{{ user }}/.drush creates=/home/{{ user }}/.drush/{{ item }}
+  with_items: drush_core_modules
+  notify: clear drush cache
+  remote_user: ansible
+  tags: drush
+
+- name: Create Drush aliases folder
+  file:
+    path: "{{ drush_install_path }}/aliases"
+    state: directory
+    owner: "root"
+    group: "{{ drushuser_admin_group }}"
+    mode: 0755
+    recurse: no
+  tags: drush
+  sudo: true
+
+- name: Drupal | Put the drushrc file inplace
+  template:
+    src: drushrc.php.j2
+    dest: "{{ drush_install_path }}/drushrc.php"
+    owner: "root"
+    group: "{{ drushuser_admin_group }}"
+    mode: 0440
+    backup: no
+  sudo: true
+  tags: drush

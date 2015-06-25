@@ -1,13 +1,12 @@
 ---
 dependencies:
-  - { role: geerlingguy.git }
-  - { role: geerlingguy.php }
-  - { role: geerlingguy.composer }
+  - { role: ansible-role-php }
+  - { role: ansible-role-composer }
 
 galaxy_info:
-  author: geerlingguy
-  description: Drush - command line shell for Drupal
-  company: "Midwestern Mac, LLC"
+  author: iAugur
+  description: Drush installation and configuration (forked from geerlingguy)
+  company: "Blue-Bag"
   license: "license (BSD, MIT)"
   min_ansible_version: 1.4
   platforms:
@@ -42,5 +41,5 @@ galaxy_info:
     versions:
     - all
   categories:
-    - development
+    - packaging
     - web
