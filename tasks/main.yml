@@ -4,12 +4,12 @@
 
 - name: Create Drush folder in users home
   file:
-    path: "/home/{{ user }}/.drush"
+    path: "/home/{{ drush_remote_user }}/.drush"
     state: directory
-    owner: "{{ user }}"
+    owner: "{{ drush_remote_user }}"
     mode: 0755
     recurse: no
-  remote_user: {{ drush_remote_user }}
+  remote_user: "{{ drush_remote_user }}"
 
 - name: Clone Drush from GitHub.
   git:
@@ -42,7 +42,6 @@
     src: "{{ drush_install_path }}/drush"
     dest: "{{ drush_path }}"
     state: link
-  sudo: true
   tags: drush
 
 - name: Run drush to finish setting it up.
@@ -58,7 +57,7 @@
 
 - name: Download Drush Modules
   command: >
-    drush dl {{ item }} --yes chdir=/home/{{ user }}/.drush creates=/home/{{ user }}/.drush/{{ item }}
+    drush dl {{ item }} --yes chdir=/home/{{ drush_remote_user }}/.drush creates=/home/{{ drush_remote_user }}/.drush/{{ item }}
   with_items: drush_core_modules
   notify: clear drush cache
   remote_user: ansible
