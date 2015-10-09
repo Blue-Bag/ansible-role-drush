@@ -60,7 +60,6 @@
     drush dl {{ item }} --yes chdir=/home/{{ drush_remote_user }}/.drush creates=/home/{{ drush_remote_user }}/.drush/{{ item }}
   with_items: drush_core_modules
   notify: clear drush cache
-  remote_user: ansible
   tags: drush
 
 - name: Create Drush aliases folder
