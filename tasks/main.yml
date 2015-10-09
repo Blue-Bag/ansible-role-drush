@@ -55,12 +55,17 @@
   changed_when: "'Execute a drush command' not in drush_result.stdout"
   tags: drush
 
+# to_do - add support for specific versions
 - name: Download Drush Modules
   command: >
-    drush dl {{ item }} --yes chdir=/home/{{ drush_remote_user }}/.drush creates=/home/{{ drush_remote_user }}/.drush/{{ item }}
+    drush dl {{ item }} --destination=/home/{{ drush_remote_user }}/.drush/{{ item }} --yes
+    creates=/home/{{ drush_remote_user }}/.drush/{{ item }}
   with_items: drush_core_modules
+  when: drush_install_modules
   notify: clear drush cache
+  sudo: false
   tags: drush
+
 
 - name: Create Drush aliases folder
   file:

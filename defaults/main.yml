@@ -10,6 +10,8 @@ drush_remote_user: 'root'
 # typically override to remote_user admin group
 drushuser_admin_group: 'root'
 
+drush_install_modules: true
+
 drush_core_modules:
  - registry_rebuild
  - site_audit
