@@ -42,6 +42,7 @@
     src: "{{ drush_install_path }}/drush"
     dest: "{{ drush_path }}"
     state: link
+  sudo: true
   tags: drush
 
 - name: Run drush to finish setting it up.
