@@ -2,6 +2,7 @@
 dependencies:
   - { role: ansible-role-php }
   - { role: ansible-role-composer }
+  # - { role: ansible-role-git }
 
 galaxy_info:
   author: iAugur
