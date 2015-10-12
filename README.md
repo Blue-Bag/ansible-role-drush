@@ -34,9 +34,12 @@ Whether to keep Drush up-to-date with the latest revision of the branch specifie
 
 ## Dependencies
 
-  - geerlingguy.git (Installs Git).
-  - geerlingguy.php (Installs PHP).
-  - geerlingguy.composer (Installs Composer).
+Breaks dependencies to geerlingguy php and composer.
+Also has a soft dependency on git (but use whichever git role you favour)
+
+  - ansible-role-php (Installs PHP).
+  - ansible-role-composer (Installs Composer).
+    # - { role: ansible-role-git }
 
 ## Example Playbook
 
