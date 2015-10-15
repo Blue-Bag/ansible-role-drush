@@ -1,9 +1,11 @@
 ---
 dependencies:
   - name: ansible-role-php
+    role: ansible-role-php
     src: git+git@github.com:Blue-Bag/ansible-role-php.git
     version: remotes/origin/dev
   - name: ansible-role-composer
+    role: ansible-role-composer
     src: git+git@github.com:Blue-Bag/ansible-role-composer.git
     version: remotes/origin/dev
     # - { role: ansible-role-git }
