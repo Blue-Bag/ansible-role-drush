@@ -45,10 +45,14 @@
   sudo: true
   tags: drush
 
-- name: Run drush to finish setting it up.
-  command: "{{ drush_path }}"
-  register: drush_result
-  changed_when: "'Execute a drush command' not in drush_result.stdout"
+
+# - name: Make sure Drush is group owned byweb admin group
+#   file:
+
+# - name: Run drush to finish setting it up.
+#   command: "{{ drush_path }}"
+#   register: drush_result
+#   changed_when: "'Execute a drush command' not in drush_result.stdout"
 
 - name: Run drush to finish setting it up.
   command: "{{ drush_path }}"
@@ -59,7 +63,7 @@
 # to_do - add support for specific versions
 - name: Download Drush Modules
   command: >
-    drush dl {{ item }} --destination=/home/{{ drush_remote_user }}/.drush/{{ item }} --yes
+    drush dl {{ item }} --default-major={{ drush_default_major }} --destination=/home/{{ drush_remote_user }}/.drush/{{ item }} --yes
     creates=/home/{{ drush_remote_user }}/.drush/{{ item }}
   with_items: drush_core_modules
   when: drush_install_modules

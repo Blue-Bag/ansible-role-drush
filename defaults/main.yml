@@ -12,6 +12,7 @@ drushuser_admin_group: 'root'
 
 drush_install_modules: true
 
+drush_default_major: 7
 drush_core_modules:
  - registry_rebuild
  - site_audit
