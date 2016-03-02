@@ -1,6 +1,7 @@
 ---
-drush_install_path: /usr/local/share/drush
-drush_path: /usr/local/bin/drush
+drush_install_path: '/usr/local/share/drush'
+drush_bin: '/usr/local/bin'
+drush_path: '/usr/local/bin/drush'
 drush_version: master
 drush_keep_updated: no
 
