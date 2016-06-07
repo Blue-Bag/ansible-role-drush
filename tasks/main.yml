@@ -17,7 +17,7 @@
     dest: "{{ drush_install_path }}"
     version: "{{ drush_version }}"
     update: "{{ drush_keep_updated }}"
-  sudo: true
+  become: true
   tags: drush
 
 # See: https://github.com/geerlingguy/ansible-role-drush/issues/6
@@ -33,7 +33,7 @@
     {{ composer_path }} update {{ drush_composer_cli_options }}
     chdir={{ drush_install_path }}
     creates={{ drush_install_path }}/vendor/autoload.php
-  sudo: true
+  become: true
   tags: drush
 
 
@@ -42,7 +42,7 @@
     src: "{{ drush_install_path }}/drush"
     dest: "{{ drush_path }}"
     state: link
-  sudo: true
+  become: true
   tags: drush
 
 
@@ -81,7 +81,7 @@
     mode: 0755
     recurse: no
   tags: drush
-  sudo: true
+  become: true
 
 - name: Drupal | Put the drushrc file inplace
   template:
@@ -91,5 +91,5 @@
     group: "{{ drushuser_admin_group }}"
     mode: 0440
     backup: no
-  sudo: true
+  become: true
   tags: drush
