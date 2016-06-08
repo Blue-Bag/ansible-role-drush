@@ -68,7 +68,7 @@
   with_items: drush_core_modules
   when: drush_install_modules
   notify: clear drush cache
-  sudo: false
+  become: false
   tags: drush
 
 
