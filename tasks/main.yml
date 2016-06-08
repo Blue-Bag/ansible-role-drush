@@ -65,7 +65,7 @@
   command: >
     drush dl {{ item }} --default-major={{ drush_default_major }} --destination=/home/{{ drush_remote_user }}/.drush/{{ item }} --yes
     creates=/home/{{ drush_remote_user }}/.drush/{{ item }}
-  with_items: drush_core_modules
+  with_items: "{{drush_core_modules}}"
   when: drush_install_modules
   notify: clear drush cache
   become: false
