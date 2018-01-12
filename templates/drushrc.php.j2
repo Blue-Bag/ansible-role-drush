@@ -3,4 +3,5 @@
 
 $options['alias-path'] = array('{{ drush_install_path }}/aliases');
 
-$options['structure-tables']['common'] = array('cache', 'cache_filter', 'cache_menu', 'cache_page', 'history', 'sessions', 'watchdog');
+#$options['structure-tables']['common'] = array('cache', 'cache_filter', 'cache_menu', 'cache_page', 'history', 'sessions', 'watchdog');
+$options['structure-tables']['common'] = array('cache', 'cache_*', 'history', 'sessions', 'watchdog');
